@@ -2,13 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-Route::get('/', function () {
-    //return view('welcome'); Visualização padrão
-    return 'Olá! Seja bem-vindo!';
-});
-*/
-
 //Incorpora uma controller para executar a regra de negócio         //nomear rotas
 Route::get('/','App\Http\Controllers\PrincipalController@principal')->name('site.index');
 
@@ -27,9 +20,8 @@ Route::prefix('/app')->group(function(){
         return 'Clientes';
     })->name('app.clientes');
 
-    Route::get('/fornecedores', function(){
-        return 'Fornecedores';
-    })->name('app.fornecedores');
+    Route::get('/fornecedores', 'App\Http\Controllers\FornecedorController@index')
+    ->name('app.fornecedores');
 
     Route::get('/produtos', function(){
         return 'Produtos';
@@ -37,22 +29,25 @@ Route::prefix('/app')->group(function(){
 
 });
 
-Route::get('/rota1', function(){
-    echo 'Rota 1';
-})->name('site.rota1');
-
-//redirecionamento de rota
-//Route::redirect('/rota2', '/rota1');
-Route::get('/rota2', function(){
-    return redirect()->route('site.rota1');
-    //cai na rota2 e vai para a rota1
-    echo 'Rota 2';
-})->name('site.rota2');
+Route::get(
+    '/teste/{p1}/{p2}', 
+    'App\Http\Controllers\TesteController@teste')
+    ->name('site.teste')
+    ->where('p1', '[0-9]+')
+    ->where('p2', '[0-9]+');
 
 //Se uma rota inexistente ser acessada, redirecionar para outra (fallback)
 Route::fallback(function(){
     echo 'A rota acessada não existe! <a href="'.route("site.index").'">Clique aqui</a> para ir para a página inicial.';
 });
+
+/* //redirecionamento de rota
+//Route::redirect('/rota2', '/rota1');
+Route::get('/rota2', function(){
+    return redirect()->route('site.rota1');
+    //cai na rota2 e vai para a rota1
+    echo 'Rota 2';
+})->name('site.rota2'); */
 
 //Envio de parametros nas rotas
 //Parametros opcionais '?'
