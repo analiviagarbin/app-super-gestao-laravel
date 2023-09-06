@@ -29,13 +29,6 @@ Route::prefix('/app')->group(function(){
 
 });
 
-Route::get(
-    '/teste/{p1}/{p2}', 
-    'App\Http\Controllers\TesteController@teste')
-    ->name('site.teste')
-    ->where('p1', '[0-9]+')
-    ->where('p2', '[0-9]+');
-
 //Se uma rota inexistente ser acessada, redirecionar para outra (fallback)
 Route::fallback(function(){
     echo 'A rota acessada não existe! <a href="'.route("site.index").'">Clique aqui</a> para ir para a página inicial.';
