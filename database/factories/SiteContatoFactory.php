@@ -18,7 +18,7 @@ class SiteContatoFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'nome' => fake()->name(),
             'telefone' => fake()->cellphoneNumber(),
             'email' => fake()->email(),
             'motivo_contato' => fake()->numberBetween(1,3),

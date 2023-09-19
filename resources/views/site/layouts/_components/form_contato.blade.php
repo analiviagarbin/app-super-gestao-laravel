@@ -7,7 +7,7 @@
     <br>
     <input name="email" type="text" placeholder="E-mail" class="{{ $color }}">
     <br>
-    <select name="motivo" class="{{ $color }}">
+    <select name="motivo_contato" class="{{ $color }}">
         <option value="">Qual o motivo do contato?</option>
         <option value="1">Dúvida</option>
         <option value="2">Elogio</option>

@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             // https://laravel.com/docs/10.x/migrations#creating-tables
-            $table->string('name', 100);
+            $table->string('nome', 100);
             $table->string('telefone', 20);
             $table->string('email', 100);
             $table->integer('motivo_contato');
