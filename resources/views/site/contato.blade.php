@@ -11,7 +11,7 @@
 
     <div class="informacao-pagina">
         <div class="contato-principal">
-            @component('site.layouts._components.form_contato', ['color' => 'borda-preta'])
+            @component('site.layouts._components.form_contato', ['color' => 'borda-preta', 'motivo_contatos' => $motivo_contatos])
             <!-- CODIFICAÇÃO HTML A MAIS -->
             <p>A nossa equipe analisará a sua mensagem e retornaremos o mais brevemente possível.</p>
             <p>Nosso tempo médio de resposta é de 48h.</p>
