@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 //Incorpora uma controller para executar a regra de negócio         //nomear rotas
@@ -15,18 +16,11 @@ Route::get('/login', function(){
 })->name('site.login');
 
 //Grupo de prefixo /app
-Route::prefix('/app')->group(function(){
+Route::middleware('autenticacao:padrao, visitante')->prefix('/app')->group(function(){
 
-    Route::get('/clientes', function(){
-        return 'Clientes';
-    })->name('app.clientes');
-
-    Route::get('/fornecedores', 'App\Http\Controllers\FornecedorController@index')
-    ->name('app.fornecedores');
-
-    Route::get('/produtos', function(){
-        return 'Produtos';
-    })->name('app.produtos');
+    Route::get('/clientes', function(){ return 'Clientes'; })->name('app.clientes');
+    Route::get('/fornecedores', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedores');
+    Route::get('/produtos', function(){ return 'Produtos'; })->name('app.produtos');
 
 });
 
