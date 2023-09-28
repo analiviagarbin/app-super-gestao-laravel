@@ -11,17 +11,16 @@ Route::get('/sobre-nos','App\Http\Controllers\SobreNosController@sobrenos')->nam
 Route::get('/contato',[\App\Http\Controllers\ContatoController::class,'contato'])->name('site.contato');
 Route::post('/contato',[\App\Http\Controllers\ContatoController::class,'salvar'])->name('site.contato');
 
-Route::get('/login', function(){
-    return 'Login';
-})->name('site.login');
+Route::get('/login/{erro?}', [\App\Http\Controllers\LoginController::class,'index'])->name('site.login');
+Route::post('/login', [\App\Http\Controllers\LoginController::class,'autenticar'])->name('site.login');
 
 //Grupo de prefixo /app
 Route::middleware('autenticacao:padrao, visitante')->prefix('/app')->group(function(){
-
-    Route::get('/clientes', function(){ return 'Clientes'; })->name('app.clientes');
-    Route::get('/fornecedores', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedores');
-    Route::get('/produtos', function(){ return 'Produtos'; })->name('app.produtos');
-
+    Route::get('/home', 'App\Http\Controllers\HomeController@index' )->name('app.home');
+    Route::get('/sair', 'App\Http\Controllers\LoginController@sair' )->name('app.sair');
+    Route::get('/cliente', 'App\Http\Controllers\ClienteController@index' )->name('app.cliente');
+    Route::get('/fornecedor', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedor');
+    Route::get('/produto', 'App\Http\Controllers\ProdutoController@index' )->name('app.produto');
 });
 
 //Se uma rota inexistente ser acessada, redirecionar para outra (fallback)
