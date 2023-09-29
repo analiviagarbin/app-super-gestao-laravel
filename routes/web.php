@@ -17,8 +17,10 @@ Route::middleware('autenticacao:padrao, visitante')->prefix('/app')->group(funct
     Route::get('/home', 'App\Http\Controllers\HomeController@index' )->name('app.home');
     Route::get('/sair', 'App\Http\Controllers\LoginController@sair' )->name('app.sair');
     Route::get('/cliente', 'App\Http\Controllers\ClienteController@index' )->name('app.cliente');
-    Route::get('/produto', 'App\Http\Controllers\ProdutoController@index' )->name('app.produto');
     
+    // produtos
+    Route::resource('/produto', 'App\Http\Controllers\ProdutoController');
+ 
     Route::get('/fornecedor', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedor');
     Route::get('/fornecedor/adicionar', 'App\Http\Controllers\FornecedorController@adicionar')->name('app.fornecedor.adicionar');
     Route::post('/fornecedor/adicionar', 'App\Http\Controllers\FornecedorController@adicionar')->name('app.fornecedor.adicionar');
