@@ -20,6 +20,8 @@ Route::middleware('autenticacao:padrao, visitante')->prefix('/app')->group(funct
     
     // produtos
     Route::resource('/produto', 'App\Http\Controllers\ProdutoController');
+
+    Route::resource('/produto-detalhe', 'App\Http\Controllers\ProdutoDetalheController');
  
     Route::get('/fornecedor', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedor');
     Route::get('/fornecedor/adicionar', 'App\Http\Controllers\FornecedorController@adicionar')->name('app.fornecedor.adicionar');
