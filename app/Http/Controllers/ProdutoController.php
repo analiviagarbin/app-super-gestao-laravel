@@ -15,7 +15,8 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         $produtos = Produto::paginate(10);
-     
+        
+        /*
         // relacionamento 1:1 sem Eloquent ORM
         foreach($produtos as $key => $produto){
 
@@ -27,6 +28,7 @@ class ProdutoController extends Controller
                 $produtos[$key]['altura'] = $produtoDetalhe->altura;
             }
         }
+        */
 
         return view('app.produto.index', ['produtos' => $produtos, 'request' => $request->all() ]);
     }
