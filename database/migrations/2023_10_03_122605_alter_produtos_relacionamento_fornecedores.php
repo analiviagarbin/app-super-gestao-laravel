@@ -26,17 +26,10 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('produtos', function (Blueprint $table) {
-            $table->dropForeign('produtos_fornecedor_id_foreign');
+        //
+        Schema::table('produtos', function(Blueprint $table) {
+            $table->dropForeign('produtos_fornecedor_id_foreing');
             $table->dropColumn('fornecedor_id');
         });
- 
-        $item = Fornecedor::where('email', '=', 'contato@fornecedorpadraosg.com.br')->get();
- 
-        $id = $item[0]['id'];
- 
-        $fornecedores = Fornecedor::find($id);
- 
-        $fornecedores->forceDelete();
     }
 };

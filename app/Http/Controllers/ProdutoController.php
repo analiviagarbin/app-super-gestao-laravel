@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Unidade;
 use App\Models\ProdutoDetalhe;
 use App\Models\Item;
+use App\Models\Fornecedor;
 
 class ProdutoController extends Controller
 {
@@ -38,8 +39,8 @@ class ProdutoController extends Controller
     public function create()
     {
         $unidades = Unidade::all();
-
-        return view('app.produto.create', ['unidades' => $unidades]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.create', ['unidades' => $unidades, 'fornecedores' => $fornecedores]);
     }
 
     // armazena os dados do create no banco
@@ -49,20 +50,22 @@ class ProdutoController extends Controller
             'nome' => 'required|min:3|max:40',
             'descricao' => 'required|min:3|max:2000',
             'peso' => 'required|integer',
-            'unidade_id' => 'exists:unidades,id'
+            'unidade_id' => 'exists:unidades,id',
+            'fornecedor_id' => 'exists:fornecedores,id'
         ];
 
         $feedback = [
             'required' => 'O campo :attribute é obrigatório',
             'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
             'max' => 'O campo :attribute ultrapassou o limite de caracteres',
-            'exists' => 'Essa únidade de medida não está disponível',
-            'peso.integer' => 'O campo peso deve ser um número inteiro'
+            'unidade_id.exists' => 'Essa únidade de medida não está disponível',
+            'peso.integer' => 'O campo peso deve ser um número inteiro',
+            'fornecedore_id.exists' => 'Fornecedor inválido'
         ];
 
         $request->validate($regras, $feedback);
 
-        Produto::create($request->all());
+        Item::create($request->all());
         return redirect()->route('produto.index');
     }
 
@@ -76,14 +79,31 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         $unidades = Unidade::all();
-        return view('app.produto.edit', ['produto' => $produto, 'unidades' => $unidades]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.edit', ['produto' => $produto, 'unidades' => $unidades, 'fornecedores' => $fornecedores]);
         //return view('app.produto.create', ['produto' => $produto, 'unidades' => $unidades]);
     }
 
     // atualização do registro do banco a partir do formulario do edit
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Item $produto)
     {
-        $request->all(); //payload (dados úteis)
+        $regras = [
+            'nome' => 'required|min:3|max:40',
+            'descricao' => 'required|min:3|max:2000',
+            'peso' => 'required|integer',
+            'unidade_id' => 'exists:unidades,id',
+            'fornecedor_id' => 'exists:fornecedores,id'
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute é obrigatório',
+            'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
+            'max' => 'O campo :attribute ultrapassou o limite de caracteres',
+            'unidade_id.exists' => 'Essa únidade de medida não está disponível',
+            'peso.integer' => 'O campo peso deve ser um número inteiro',
+            'fornecedore_id.exists' => 'Fornecedor inválido'
+        ];
+
         $produto->update($request->all());
         return redirect()->route('produto.show', ['produto' => $produto->id ]);
     }
