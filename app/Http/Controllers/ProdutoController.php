@@ -6,6 +6,7 @@ use App\Models\Produto;
 use Illuminate\Http\Request;
 use App\Models\Unidade;
 use App\Models\ProdutoDetalhe;
+use App\Models\Item;
 
 class ProdutoController extends Controller
 {
@@ -14,7 +15,7 @@ class ProdutoController extends Controller
     // listagem em paginação
     public function index(Request $request)
     {
-        $produtos = Produto::paginate(10);
+        $produtos = Item::with(['itemDetalhe'])->paginate(10);
         
         /*
         // relacionamento 1:1 sem Eloquent ORM
