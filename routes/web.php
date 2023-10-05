@@ -26,7 +26,7 @@ Route::middleware('autenticacao:padrao, visitante')->prefix('/app')->group(funct
     //Route::resource('/pedido-produto', 'App\Http\Controllers\PedidoProdutoController');
     Route::get('pedido-produto/create/{pedido}', 'App\Http\Controllers\PedidoProdutoController@create')->name('pedido_produto.create');
     Route::post('pedido-produto/create/{pedido}', 'App\Http\Controllers\PedidoProdutoController@store')->name('pedido_produto.store');
-
+    Route::delete('pedido-produto/destroy/{pedido}/{produto}', 'App\Http\Controllers\PedidoProdutoController@destroy')->name('pedido-produto.destroy');
  
     Route::get('/fornecedor', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedor');
     Route::get('/fornecedor/adicionar', 'App\Http\Controllers\FornecedorController@adicionar')->name('app.fornecedor.adicionar');
