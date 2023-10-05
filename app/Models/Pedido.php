@@ -11,6 +11,6 @@ class Pedido extends Model
     public function produtos(){
         // model do relacionamento nxn  tabela auxiliar (registros de relacionamento)
         // nome da fk da tabela mapeada
-        return $this->belongsToMany('App\Models\Produto', 'pedidos_produtos', 'pedido_id', 'produto_id');
+        return $this->belongsToMany('App\Models\Produto', 'pedidos_produtos', 'pedido_id', 'produto_id')->withPivot('created_at');
     }
 }
